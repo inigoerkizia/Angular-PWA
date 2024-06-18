@@ -1,1 +1,32 @@
-<h1>{{titulo | uppercase}}</h1>>
+<h1 [style.background]="color">
+    {{titulo | titlecase}}
+</h1>
+
+<div [ngStyle]="{padding : '3em'}">
+    <ul class="list-group">
+        <li class="list-group-item active">Mis alumnos</li>
+        <li class="list-group-item" *ngFor="let alumno of alumnos">
+            {{alumno}}
+        </li>
+        <li class="list-group-item">
+            <div class="input-group">
+                <input #txtNombre class="form-control" type="text" />
+                <!--<button class="btn btn-outline-primary" (click)="agregarAlumno(txtNombre.value)">Agregar</button>-->
+                <button class="btn btn-outline-primary" (click)="agregarAlumno(txtNombre)">Agregar</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<button class="btn btn-primary" (click)="alternarDivs()">
+    Alternar Divs de abajo
+</button>
+
+<div *ngIf="mostrarDiv">
+    Se muestra este Div
+</div>
+
+<div *ngIf="!mostrarDiv">
+    Sino se muetsra este otro Div
+</div>

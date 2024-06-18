@@ -13,4 +13,23 @@ export class HolaMundoComponent {
   color : string = 'blue';
   //Opcionalmente publico
   public alumnos : string[] = ["Jesus", "Unai", "Jeray", "Mikel", "Maore"];
+
+  mostrarDiv : boolean = false;
+  alternarDivs() {
+    this.mostrarDiv = !this.mostrarDiv;
+  }
+
+  /*agregarAlumno(alumno : string) {
+    if(alumno.length > 0) {
+      this.alumnos.push(alumno);
+    }
+  }
+*/
+//any() no distingue tipos
+agregarAlumno(txtAlumno : HTMLInputElement) {
+    if(txtAlumno.value.length > 0) {
+      this.alumnos.push(txtAlumno.value);
+      txtAlumno.value = "";
+    }
+  }
 }
