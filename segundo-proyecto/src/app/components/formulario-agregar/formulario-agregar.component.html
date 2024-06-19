@@ -1,6 +1,6 @@
 <h3 class="alert alert-info">Formulario Agregar</h3>
  
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="txtNombre">Nombre</label>
     <input type="text" id="txtNombre" class="form-control" [formControlName]="campos.nombre">

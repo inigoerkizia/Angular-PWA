@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { PropNames, objectProps } from '../../utils/strong-type-props';
 import { ContactoModel } from '../../models/contacto.model';
+import { ContactoServiceInterface } from '../../services/contacto.service.interface';
  
  
 @Component({
@@ -17,7 +18,9 @@ export class FormularioAgregarComponent {
     form : FormGroup;
     campos : PropNames<ContactoModel>;;
  
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+       private service: ContactoServiceInterface,
+       private router: Router) {
       this.form = this.fb.group({
         documento: ['', [Validators.required, Validators.min(1000000), Validators.max(99999999)]],
         nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
@@ -38,6 +41,14 @@ export class FormularioAgregarComponent {
         nombre: 'Juan',
         fechaNacimiento: new Date().toISOString().split('T')[0],
         genero: 'Masculino'
+      });
+    }
+
+    submitForm(){
+      this.service.agregar(this.form.value).subscribe({
+        next: () => {
+          this.router.navigate(['']);
+        }
       });
     }
 }
