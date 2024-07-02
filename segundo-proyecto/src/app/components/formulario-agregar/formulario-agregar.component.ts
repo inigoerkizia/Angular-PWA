@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { PropNames, objectProps } from '../../utils/strong-type-props';
 import { ContactoModel } from '../../models/contacto.model';
 import { ContactoServiceInterface } from '../../services/contacto.service.interface';
+import Swal from 'sweetalert2';
  
  
 @Component({
@@ -45,10 +46,20 @@ export class FormularioAgregarComponent {
     }
 
     submitForm(){
-      this.service.agregar(this.form.value).subscribe({
-        next: () => {
-          this.router.navigate(['']);
-        }
-      });
+      if(this.form.valid){
+      
+        this.service.agregar(this.form.value).subscribe({
+            next: () => {
+              this.router.navigate(['']);
+            },
+            error: (error) => {
+              Swal.fire({
+                title: 'Error',
+                text: JSON.stringify(error.error),
+                icon: 'error'
+            });
+          }
+        });
+      }
     }
 }
